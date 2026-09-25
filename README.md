@@ -16,25 +16,25 @@ git clone <URL_DO_REPOSITORIO>
 cd Trend_Store
 ```
 
-Crie e ative um ambiente virtual:
+Execute a configuração automática no PowerShell:
 
 ```powershell
-py -m venv .venv
-.venv\Scripts\Activate.ps1
+powershell -ExecutionPolicy Bypass -File .\setup.ps1
 ```
 
-No macOS ou Linux, use `python3 -m venv .venv` e `source .venv/bin/activate`.
-
-Instale as dependências e crie sua configuração local:
+O script cria `.venv`, instala as dependências de `requirements.txt` e copia
+`.env.example` para `.env` apenas se o arquivo local ainda não existir. No macOS
+ou Linux, as etapas ainda podem ser executadas manualmente:
 
 ```powershell
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-Copy-Item .env.example .env
+python3 -m venv .venv
+./.venv/bin/python -m pip install --upgrade pip
+./.venv/bin/python -m pip install -r requirements.txt
+cp .env.example .env
 ```
 
-No macOS ou Linux, substitua o último comando por `cp .env.example .env`.
-Cada pessoa deve manter seu próprio `.env`; ele não deve ser enviado ao Git.
+Se `.env` já existir, mantenha-o: ele não será sobrescrito e não deve ser enviado
+ao Git.
 
 ## Executar
 
