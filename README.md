@@ -48,7 +48,6 @@ administrador local, execute `python manage.py createsuperuser`.
 
 ## Trabalho em equipe
 
-- Crie uma branch para cada tarefa e abra um pull request para integrar mudanças.
 - Não envie `.env`, `.venv/` nem o banco local `db.sqlite3` ao repositório.
 - Ao adicionar uma dependência, atualize `requirements.txt` e informe a equipe.
 - Ao alterar modelos, inclua as migrações geradas (`python manage.py makemigrations`)
