@@ -12,8 +12,9 @@
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
     <link rel="stylesheet" href="{% static 'css/produto.css' %}" />
   </head>
-  <body>
-    {% include 'loja_roupas/components/navbar.html' %} {% block content %}
-    {%endblock %}
-  </body>
+    <body>
+        {% block content %}
+        {% include 'components/navbar.html' %}
+        {% endblock content %}
+    </body>
 </html>
