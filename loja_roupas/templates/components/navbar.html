@@ -1,0 +1,17 @@
+{% load static %}
+
+<nav class="navbar">
+  <div class="logo">
+    <img src="{% static 'images/logo.png' %}" alt="logo" />
+  </div>
+  <div class="search"></div>
+  <div class="inicio">
+    <a class="link" href="{% url 'catalogo' %}">Início</a>
+  </div>
+  <div class="perfil">
+    <p>Perfil</p>
+  </div>
+  <div class="carrinho">
+    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+  </div>
+</nav>
