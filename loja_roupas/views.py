@@ -1,12 +1,48 @@
-from django.shortcuts import render
+from django.contrib.auth import login as auth_login
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.shortcuts import redirect, render
 
 # Create your views here.
 
 def login(request):
-    return render(request, 'login.html')
+    login_form = AuthenticationForm(request=request)
+    cadastro_form = UserCreationForm()
+    # Define qual painel fica visível ao abrir a página ou retornar com erros.
+    active_form = 'login'
+
+    if request.method == 'POST':
+        # O campo oculto "acao" identifica qual formulário foi enviado.
+        if request.POST.get('acao') == 'cadastro':
+            active_form = 'cadastro'
+            cadastro_form = UserCreationForm(request.POST)
+
+            if cadastro_form.is_valid():
+                usuario = cadastro_form.save()
+                # O cadastro também inicia a sessão do novo usuário.
+                auth_login(request, usuario)
+                return redirect('catalogo')
+        else:
+            login_form = AuthenticationForm(request=request, data=request.POST)
+
+            if login_form.is_valid():
+                # O AuthenticationForm já validou as credenciais enviadas.
+                auth_login(request, login_form.get_user())
+                return redirect('catalogo')
+
+    return render(request, 'login.html', {
+        'login_form': login_form,
+        'cadastro_form': cadastro_form,
+        'active_form': active_form,
+    })
+
+
 def catalogo(request):
     return render(request, 'catalogo.html')
+
+
 def carrinho(request):
     return render(request, 'carrinho.html')
+
+
 def produto(request):
     return render(request, 'produto.html')
