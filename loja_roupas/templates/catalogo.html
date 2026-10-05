@@ -1,11 +1,17 @@
+{% load static %}
 <!doctype html>
 <html lang="pt-BR">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Catálogo | Trend Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
 </head>
 <body>
+    {% block content %}
+        {% include 'components/navbar.html' %}
+        {% endblock content %}
 	<main class="catalog-page">
 		{% if user.is_authenticated %}
 			<!-- O botão só aparece para quem está autenticado e encerra a sessão via POST. -->
