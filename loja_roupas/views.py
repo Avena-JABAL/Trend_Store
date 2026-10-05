@@ -1,4 +1,5 @@
 from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import redirect, render
 
@@ -38,6 +39,14 @@ def login(request):
 
 def catalogo(request):
     return render(request, 'catalogo.html')
+
+
+def logout(request):
+    # Encerrar sessão altera estado, então a rota só aceita POST.
+    if request.method == 'POST':
+        auth_logout(request)
+
+    return redirect('catalogo')
 
 
 def carrinho(request):

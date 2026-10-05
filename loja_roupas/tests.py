@@ -66,3 +66,30 @@ class AutenticacaoTests(TestCase):
 
 		self.assertRedirects(resposta, reverse("catalogo"))
 		self.assertIn("_auth_user_id", self.client.session)
+
+
+class LogoutTests(TestCase):
+	def test_botao_logout_so_aparece_para_usuario_autenticado(self):
+		resposta_anonima = self.client.get(reverse("catalogo"))
+		self.assertNotContains(resposta_anonima, "Sair")
+
+		usuario = get_user_model().objects.create_user(
+			username="cliente_logado",
+			password="Compra-Segura-2026!",
+		)
+		self.client.force_login(usuario)
+
+		resposta_logada = self.client.get(reverse("catalogo"))
+		self.assertContains(resposta_logada, "Sair")
+
+	def test_logout_encerra_sessao_e_volta_ao_catalogo(self):
+		usuario = get_user_model().objects.create_user(
+			username="cliente_para_sair",
+			password="Compra-Segura-2026!",
+		)
+		self.client.force_login(usuario)
+
+		resposta = self.client.post(reverse("logout"))
+
+		self.assertRedirects(resposta, reverse("catalogo"))
+		self.assertNotIn("_auth_user_id", self.client.session)
