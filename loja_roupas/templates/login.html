@@ -1,0 +1,109 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-BR">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Entrar ou cadastrar | Trend Store</title>
+</head>
+<body>
+	<main class="auth-page">
+		<header class="auth-header">
+			<a class="auth-brand" href="{% url 'catalogo' %}">Trend Store</a>
+			<h1 class="auth-title">Acesse sua conta</h1>
+		</header>
+
+		<!-- Estes botões trocam os painéis sem enviar os formulários. -->
+		<nav class="auth-switcher" aria-label="Escolha entre login e cadastro">
+			<button class="auth-switch auth-switch--login" type="button"
+				data-form-target="login-panel" aria-controls="login-panel"
+				aria-pressed="{% if active_form == 'login' %}true{% else %}false{% endif %}">
+				Entrar
+			</button>
+			<button class="auth-switch auth-switch--register" type="button"
+				data-form-target="register-panel" aria-controls="register-panel"
+				aria-pressed="{% if active_form == 'cadastro' %}true{% else %}false{% endif %}">
+				Criar conta
+			</button>
+		</nav>
+
+		<!-- A view mantém aberto o painel que precisa exibir erros de validação. -->
+		<div class="auth-forms">
+			<section class="auth-section auth-section--login" id="login-panel"
+				data-form-panel aria-labelledby="login-title"
+				{% if active_form != 'login' %}hidden{% endif %}>
+				<h2 id="login-title">Entrar</h2>
+				<!-- INÍCIO DO FORMULÁRIO DE LOGIN -->
+				<form class="auth-form" action="{% url 'login' %}" method="post">
+					{% csrf_token %}
+					<input type="hidden" name="acao" value="login">
+
+					{% for error in login_form.non_field_errors %}
+						<p class="form-error">{{ error }}</p>
+					{% endfor %}
+
+					<div class="form-field">
+						<label for="{{ login_form.username.id_for_label }}">Usuário</label>
+						{{ login_form.username }}
+						{% for error in login_form.username.errors %}
+							<p class="form-error">{{ error }}</p>
+						{% endfor %}
+					</div>
+
+					<div class="form-field">
+						<label for="{{ login_form.password.id_for_label }}">Senha</label>
+						{{ login_form.password }}
+						{% for error in login_form.password.errors %}
+							<p class="form-error">{{ error }}</p>
+						{% endfor %}
+					</div>
+
+					<button class="form-button" type="submit">Entrar</button>
+				</form>
+				<!-- FIM DO FORMULÁRIO DE LOGIN -->
+			</section>
+
+			<section class="auth-section auth-section--register" id="register-panel"
+				data-form-panel aria-labelledby="register-title"
+				{% if active_form != 'cadastro' %}hidden{% endif %}>
+				<h2 id="register-title">Criar conta</h2>
+				<!-- INÍCIO DO FORMULÁRIO DE CADASTRO -->
+				<form class="auth-form" action="{% url 'login' %}" method="post">
+					{% csrf_token %}
+					<input type="hidden" name="acao" value="cadastro">
+
+					<div class="form-field">
+						<label for="{{ cadastro_form.username.id_for_label }}">Usuário</label>
+						{{ cadastro_form.username }}
+						{% for error in cadastro_form.username.errors %}
+							<p class="form-error">{{ error }}</p>
+						{% endfor %}
+					</div>
+
+					<div class="form-field">
+						<label for="{{ cadastro_form.password1.id_for_label }}">Senha</label>
+						{{ cadastro_form.password1 }}
+						{% for error in cadastro_form.password1.errors %}
+							<p class="form-error">{{ error }}</p>
+						{% endfor %}
+					</div>
+
+					<div class="form-field">
+						<label for="{{ cadastro_form.password2.id_for_label }}">Confirme a senha</label>
+						{{ cadastro_form.password2 }}
+						{% for error in cadastro_form.password2.errors %}
+							<p class="form-error">{{ error }}</p>
+						{% endfor %}
+					</div>
+
+					<button class="form-button" type="submit">Cadastrar</button>
+				</form>
+				<!-- FIM DO FORMULÁRIO DE CADASTRO -->
+			</section>
+		</div>
+
+		<a class="auth-back-link" href="{% url 'catalogo' %}">Voltar ao catálogo</a>
+	</main>
+	<script src="{% static 'js/login.js' %}" defer></script>
+</body>
+</html>
