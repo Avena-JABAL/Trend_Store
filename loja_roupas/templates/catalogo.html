@@ -18,8 +18,7 @@
   </head>
 
   <body>
-    {% block content %} 
-    {% include 'components/navbar.html' %} 
+    {% block content %} {% include 'components/navbar.html' %} 
     {% endblock content %}
 
     <main class="catalog-page">
@@ -33,6 +32,7 @@
         <button class="catalog-logout-button" type="submit">Sair</button>
       </form>
       {% endif %}
+
 
       <section class="produtos">
         {% for roupa in roupas %}

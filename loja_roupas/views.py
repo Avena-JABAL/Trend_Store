@@ -94,6 +94,7 @@ def adicionar_carrinho(request, roupa_id):
 
     return redirect('carrinho')
 
+
 def ver_carrinho(request):
     cart = Cart(request)
     produtos_adicionados = []
