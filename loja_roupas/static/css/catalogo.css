@@ -11,28 +11,6 @@
 }
 
 
-/* BOTÃO SAIR */
-
-.catalog-logout-form {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 2rem;
-}
-
-.catalog-logout-button {
-    padding: 0.6rem 1.5rem;
-    border: none;
-    background-color: #A14545;
-    color: #FFF;
-    font-family: "Inria Serif";
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-.catalog-logout-button:hover {
-    background-color: #7F3535;
-}
-
 
 /* PRODUTOS */
 

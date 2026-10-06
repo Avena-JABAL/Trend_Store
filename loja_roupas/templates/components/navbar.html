@@ -11,14 +11,33 @@
       <input type="search" placeholder="Pesquisar..." />
     </div>
 
-    <div class="inicio">
-      <a class="link" href="{% url 'catalogo' %}">Início</a>
-    </div>
-
     <div class="login">
-      <a class="link" href="{% url 'login' %}">Faça seu login!</a>
-    </div>
 
+      {% if user.is_authenticated %}
+
+        <span class="link">
+          Usuário: {{ user.username }}
+        </span>
+
+      {% else %}
+
+        <a class="link" href="{% url 'login' %}">
+          Faça seu login!
+        </a>
+
+      {% endif %}
+    </div>
+    <div>
+    {% if user.is_authenticated %}
+      <form
+        class="catalog-logout-form"
+        action="{% url 'logout' %}"
+        method="post">
+        {% csrf_token %}
+        <button class="catalog-logout-button" type="submit">Sair</button>
+      </form>
+      {% endif %}
+    </div>
   </div>
 
   <div class="carrinho">

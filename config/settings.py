@@ -5,6 +5,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+LOGIN_URL = '/login'
 
 env = environ.Env(
     DJANGO_DEBUG=(bool, False),
