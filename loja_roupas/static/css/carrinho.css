@@ -122,4 +122,10 @@
     color: black;
     font-size: 10px;
     color: #702326;
+    transition: 0.3s;
+}
+
+.btn-remover:hover{
+    background-color: #702326;
+    color: white;
 }

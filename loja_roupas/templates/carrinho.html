@@ -21,8 +21,9 @@
       </header>
 
       <section class="carrinho-item">
-        {% for item in itens %} 
-        {% include 'components/item_card.html' with item=item show_actions=True %} 
+        {% for item in itens %} {% include 'components/item_card.html' with
+        item=item show_actions=True %} {% empty %}
+        <p>O seu carrinho está vazio.</p>
         {% endfor %}
       </section>
     </main>
