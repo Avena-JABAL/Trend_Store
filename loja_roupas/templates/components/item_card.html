@@ -1,32 +1,44 @@
 <article class="item-card">
-    <div class="item-imagem">
-        <img src="{{ item.imagem }}" alt="{{ item.nome }}">
+  <div class="item-imagem">
+    <img src="{{ item.produto.imagem }}" alt="{{ item.produto.nome }}">
+  </div>
+
+  <div class="item-info">
+    <p class="item-descricao">
+      {{ item.produto.nome }}
+    </p>
+
+    <p class="item-preco">
+      R$ {{ item.produto.preco }}
+    </p>
+
+    {% if show_actions %}
+    <div class="item-acoes">
+      <div class="item-quantidade">
+        <form action="{% url 'remover_uma_unidade' item.produto.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn-qtd">-</button>
+        </form>
+
+        <span class="qtd-valor">{{ item.quantidade }}</span>
+
+        <form action="{% url 'adicionar_carrinho' item.produto.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn-qtd">+</button>
+        </form>
+      </div>
+
+      <form action="{% url 'remover_do_carrinho' item.produto.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn-remover">
+          <svg class="icon-trash" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+          <span>Remover Item</span>
+        </button>
+      </form>
     </div>
-
-    <div class="item-info">
-        <p class="item-descricao">
-            {{ item.nome }}
-        </p>
-
-        <p class="item-preco">
-            {{ item.preco }}
-        </p>
-        {% if show_actions %}
-        <div class="item-acoes">
-            <div class="item-quantidade">
-                <button type="button" class="btn-qtd">-</button>
-                <span class="qtd-valor">1</span>
-                <button type="button" class="btn-qtd">+</button>
-            </div>
-
-            <button type="button" class="btn-remover">
-                <svg class="icon-trash" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="3 6 5 6 21 6"></polyline>
-                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                    </svg>
-                    <span>Remover Item</span>
-            </button>
-        </div>
-        {% endif %}
-    </div>
+    {% endif %}
+  </div>
 </article>

@@ -23,7 +23,6 @@
     {% endblock content %}
 
     <main class="catalog-page">
-<<<<<<< HEAD
       {% if user.is_authenticated %}
       <form
         class="catalog-logout-form"
@@ -34,8 +33,6 @@
         <button class="catalog-logout-button" type="submit">Sair</button>
       </form>
       {% endif %}
-=======
->>>>>>> 112de4a0e76335da16dce4809c32ce5de367f9b9
 
       <section class="produtos">
         {% for roupa in roupas %}
@@ -50,8 +47,16 @@
               <p>{{ roupa.nome }}</p>
 
               <strong>R$ {{ roupa.preco }}</strong>
+
               <!-- BOTÃO ADD CARRINHO -->
-              <button>carrinho</button>
+
+              <form action="{% url 'adicionar_carrinho' roupa.id %}" method="post" class="form-add-carrinho">
+                {% csrf_token %}
+                <button type="submit" class="btn-add-carrinho">
+                 <i class="fa fa-shopping-cart"></i> 
+                 Adicionar ao Carrinho
+                </button>
+             </form>   
             </div>
           </a>
         </article>

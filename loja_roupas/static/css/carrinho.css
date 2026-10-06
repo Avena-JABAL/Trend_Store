@@ -1,4 +1,4 @@
-* {
+/* * {
     padding: 0;
     box-sizing: border-box;
     margin: 0;
@@ -30,11 +30,20 @@
     flex-wrap: wrap;
 }
 
+/* CARD 
+
 
 .item-card{
-    width: 250px;
-    background-color: #d9d9d9;
+     width: 100%;
+    background-color: #E6E6E6;
     overflow: hidden;
+    box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.item-card:hover {
+    transform: translateY(-0.3rem);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
 
 .item-imagem{
@@ -128,4 +137,270 @@
 .btn-remover:hover{
     background-color: #702326;
     color: white;
+} */
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
+
+
+/* =========================
+   PÁGINA
+========================= */
+
+.carrinho-page {
+    font-size: 1rem;
+    padding: 3rem;
+    min-height: calc(100vh - 4.7rem);
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.carrinho-header {
+    margin-bottom: 4rem;
+}
+
+.carrinho-header h1 {
+    margin: 0;
+    font-size: clamp(1.8rem, 3vw, 2.25rem);
+    font-weight: 400;
+}
+
+
+/* =========================
+   CARRINHO
+========================= */
+
+.carrinho-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.item-card {
+    width: 18rem;
+    max-width: 100%;
+
+    background-color: #E6E6E6;
+
+    overflow: hidden;
+
+    box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.15);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* HOVER */
+
+.item-card:hover {
+    transform: translateY(-0.3rem);
+
+    box-shadow:
+        0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+
+
+/* =========================
+   IMAGEM
+========================= */
+
+.item-imagem {
+    width: 100%;
+    height: 11rem;
+
+    background-color: #702326;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
+.item-imagem img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.item-imagem span {
+    position: absolute;
+
+    color: white;
+
+    font-family: Georgia, serif;
+    font-size: 1rem;
+}
+
+
+/* =========================
+   INFORMAÇÕES
+========================= */
+
+.item-info {
+    height: 100%;
+    padding: 0.75rem;
+}
+
+.item-descricao {
+    margin: 0;
+
+    color: #181717;
+
+    font-family: Georgia, serif;
+    font-size: 1.2rem;
+}
+
+.item-preco {
+    margin: 0.875rem 0;
+
+    color: #b34c4c;
+
+    font-family: Georgia, serif;
+    font-size: 1.2rem;
+}
+
+
+/* =========================
+   AÇÕES
+========================= */
+
+.item-acoes {
+    display: flex;
+    align-items: center;
+
+    gap: 0.75rem;
+
+    margin-top: 1rem;
+}
+
+
+/* =========================
+   QUANTIDADE
+========================= */
+
+.item-quantidade {
+    display: flex;
+    align-items: center;
+
+    border: 0.09375rem solid #702326;
+}
+
+.btn-qtd {
+    background-color: transparent;
+    border: none;
+
+    padding: 0.375rem 0.75rem;
+
+    cursor: pointer;
+
+    font-size: 1rem;
+
+    transition: background-color 0.2s ease;
+}
+
+.btn-qtd:hover {
+    background-color: rgba(112, 35, 38, 0.1);
+}
+
+.qtd-valor {
+    padding: 0.375rem 0.75rem;
+
+    border-left: 0.09375rem solid #702326;
+    border-right: 0.09375rem solid #702326;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   REMOVER
+========================= */
+
+.btn-remover {
+    display: flex;
+    align-items: center;
+
+    gap: 0.5rem;
+
+    background-color: transparent;
+
+    border: 0.09375rem solid #702326;
+
+    padding: 0.375rem 0.75rem;
+
+    cursor: pointer;
+
+    color: #702326;
+
+    font-size: 0.625rem;
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+.btn-remover:hover {
+    background-color: #702326;
+    color: white;
+}
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 48rem) {
+
+    .carrinho-page {
+        padding: 2rem 1.5rem;
+    }
+
+    .carrinho-header {
+        margin-bottom: 2.5rem;
+    }
+
+    .item-card {
+        width: 16rem;
+    }
+
+}
+
+
+@media (max-width: 30rem) {
+
+    .carrinho-page {
+        padding: 1.5rem 1rem;
+    }
+
+    .carrinho-item {
+        justify-content: center;
+    }
+
+    .item-card {
+        width: 100%;
+        max-width: 20rem;
+    }
+
+    .item-acoes {
+        flex-wrap: wrap;
+    }
+
+}
+

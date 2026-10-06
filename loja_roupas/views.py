@@ -9,9 +9,6 @@ from .cart import Cart
 
 # Create your views here.
 
-
-
-
 def login(request):
     login_form = AuthenticationForm(request=request)
     cadastro_form = UserCreationForm()
@@ -59,12 +56,43 @@ def logout(request):
 
     return redirect('catalogo')
 
-<<<<<<< HEAD
+def remover_uma_unidade(request, roupa_id):
+    carrinho = request.session.get('carrinho', {})
+    str_id = str(roupa_id)
 
-def adicionar_carrinho(reques, roupa_id):
-    cart = Cart(request)
-    cart.add(roupa_id=roupa_id)
-    return redirect('ver_carrinho')
+    if str_id in carrinho:
+        if carrinho[str_id] > 1:
+            carrinho[str_id] -= 1
+        else:
+            del carrinho[str_id]
+
+    request.session['carrinho'] = carrinho
+    request.session.modified = True
+    return redirect('carrinho')
+
+
+def remover_do_carrinho(request, roupa_id):
+    carrinho = request.session.get('carrinho', {})
+    str_id = str(roupa_id)
+
+    if str_id in carrinho:
+        del carrinho[str_id]
+
+    request.session['carrinho'] = carrinho
+    request.session.modified = True
+    return redirect('carrinho')
+
+
+def adicionar_carrinho(request, roupa_id):
+    carrinho = request.session.get('carrinho', {})
+    
+    str_id = str(roupa_id)
+    carrinho[str_id] = carrinho.get(str_id, 0) + 1
+
+    request.session['carrinho'] = carrinho
+    request.session.modified = True
+
+    return redirect('carrinho')
 
 def ver_carrinho(request):
     cart = Cart(request)
@@ -75,7 +103,7 @@ def ver_carrinho(request):
         produtos_adicionados.append({
             'nome': roupa.nome,
             'preco': roupa.preco,
-            'imagem': roupa.imagem.url if roupa.imagem else '',
+            'imagem': roupa.imagem if roupa.imagem else '',
             'quantidade': item_data['quantity'],
             'id': roupa.id,
         })
@@ -84,32 +112,31 @@ def ver_carrinho(request):
         'show_actions':True
     })
 
-=======
 @login_required
->>>>>>> 112de4a0e76335da16dce4809c32ce5de367f9b9
 def carrinho(request):
-    itens = [  
-    {
-        "nome": "Vestido Longo", 
-        "preco": "140,90", 
-        "descricao": "Vermelho Vinho" 
-     },
-     {
-        "nome": "Calça leve", 
-        "preco": "99,99", 
-        "descricao": "Calça marrom", 
-     },
-     {
-        "nome": "Sapatilha", 
-        "preco": "90,00", 
-        "descricao": "Cor Prata", 
-        "imagem": "https://imgs.search.brave.com/yBKyDuT2RNr41Tim4THWpXVFJs5gN5xMxSVOZEc4am8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tcmNh/dHN0b3JlLnZ0ZXhp/bWcuY29tLmJyL2Fy/cXVpdm9zL2lkcy8x/MTEwMzMwLTEwMDAt/MTIwMC8yYTczZDU1/NC04MjUzLTQxNzUt/OTFjMS05NWJmNDcx/ODMyYTEuanBnP3Y9/NjM5MjI3NDg1MDA4/NDAwMDAw",
-     },
-     ]
+    carrinho_sessao = request.session.get('carrinho', {})
+    itens_carrinho = []
+    total = 0
 
-    return render(request, 'carrinho.html' , {
-        "itens": itens
-    })
+    for roupa_id, quantidade in carrinho_sessao.items():
+        try:
+            produto = Roupa.objects.get(id=int(roupa_id))
+            subtotal = produto.preco * quantidade
+            total += subtotal
+
+            itens_carrinho.append({
+                'produto': produto,
+                'quantidade': quantidade,
+                'subtotal': subtotal,
+            })   
+        except Roupa.DoesNotExist:
+            continue 
+    context = {
+        'itens': itens_carrinho,
+        'total': total,
+    }
+
+    return render(request, 'carrinho.html', context)
 
 
 def produto(request, id):
