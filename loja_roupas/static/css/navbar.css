@@ -46,3 +46,14 @@
     align-items: center;
     margin-left: -6rem;
 }
+
+.catalog-logout-button {
+    width: wrap-content;
+    padding: 0.2rem;
+    border: none;
+    background: none;
+    color: #fefefe;
+    font-family: "Inria Serif";
+    font-size: 20px;
+    cursor: pointer;
+}
