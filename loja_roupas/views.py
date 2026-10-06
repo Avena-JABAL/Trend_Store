@@ -2,6 +2,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.decorators import login_required
 
 from .models import Roupa
 from .cart import Cart
@@ -58,6 +59,7 @@ def logout(request):
 
     return redirect('catalogo')
 
+<<<<<<< HEAD
 
 def adicionar_carrinho(reques, roupa_id):
     cart = Cart(request)
@@ -82,6 +84,9 @@ def ver_carrinho(request):
         'show_actions':True
     })
 
+=======
+@login_required
+>>>>>>> 112de4a0e76335da16dce4809c32ce5de367f9b9
 def carrinho(request):
     itens = [  
     {
