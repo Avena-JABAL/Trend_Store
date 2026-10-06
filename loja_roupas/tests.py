@@ -87,6 +87,38 @@ class RoupaImagemTests(TestCase):
 		self.assertEqual(produto.imagem, "")
 
 
+class PaginaProdutoTests(TestCase):
+	def setUp(self):
+		self.roupa = Roupa.objects.create(
+			nome="Camiseta de Teste",
+			preco="49.90",
+			estoque=5,
+			tamanho="M",
+			imagem="https://exemplo.com/camiseta.jpg",
+		)
+
+	def test_pagina_recebe_a_roupa_identificada_pelo_id(self):
+		resposta = self.client.get(
+			reverse("produto", kwargs={"roupa_id": self.roupa.pk})
+		)
+
+		self.assertEqual(resposta.status_code, 200)
+		self.assertEqual(resposta.context["roupa"], self.roupa)
+
+	def test_pagina_retorna_404_quando_roupa_nao_existe(self):
+		resposta = self.client.get(
+			reverse("produto", kwargs={"roupa_id": 9999})
+		)
+
+		self.assertEqual(resposta.status_code, 404)
+
+	def test_rota_antiga_sem_id_continua_disponivel(self):
+		resposta = self.client.get(reverse("produto"))
+
+		self.assertEqual(resposta.status_code, 200)
+		self.assertIsNone(resposta.context["roupa"])
+
+
 class CriacaoAutomaticaCarrinhoTests(TestCase):
 	def test_cria_carrinho_ao_criar_usuario(self):
 		usuario = get_user_model().objects.create_user(

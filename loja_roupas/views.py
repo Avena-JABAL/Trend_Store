@@ -1,14 +1,9 @@
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.shortcuts import redirect, render
-from . import models
+from django.shortcuts import get_object_or_404, redirect, render
 
-# Definições
-
-roupas = models.Roupa.objects.all()
-carrinho = models.Carrinho.objects.all()
-item_carrinho = models.ItemCarrinho.objects.all()
+from .models import Roupa
 
 # Create your views here.
 
@@ -81,5 +76,10 @@ def carrinho(request):
     })
 
 
-def produto(request):
-    return render(request, 'produto.html')
+def produto(request, roupa_id=None):
+    roupa = (
+        get_object_or_404(Roupa, pk=roupa_id)
+        if roupa_id is not None
+        else None
+    )
+    return render(request, 'produto.html', {'roupa': roupa})
