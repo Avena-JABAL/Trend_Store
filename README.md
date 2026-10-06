@@ -40,11 +40,15 @@ ao Git.
 
 ```powershell
 python manage.py migrate
+python manage.py seed
 python manage.py runserver
 ```
 
-A aplicação fica disponível em http://127.0.0.1:8000/. Para criar um usuário
-administrador local, execute `python manage.py createsuperuser`.
+A aplicação fica disponível em http://127.0.0.1:8000/. O comando `seed`
+insere produtos genéricos de exemplo no catálogo. Ele pode ser executado várias
+vezes: produtos existentes com esses nomes são preservados, e nenhum usuário ou
+senha de exemplo é criado. Para criar um usuário administrador local, execute
+`python manage.py createsuperuser`.
 
 ## Trabalho em equipe
 

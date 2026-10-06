@@ -1,8 +1,37 @@
+from io import StringIO
+
 from django.contrib.auth import get_user_model
+from django.core.management import call_command
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import Carrinho
+from .models import Carrinho, Roupa
+
+
+class SeedDataCommandTests(TestCase):
+	def test_cria_produtos_de_exemplo_sem_duplicar_ao_reexecutar(self):
+		call_command("seed", stdout=StringIO())
+		quantidade_inicial = Roupa.objects.count()
+
+		call_command("seed", stdout=StringIO())
+
+		self.assertGreater(quantidade_inicial, 0)
+		self.assertEqual(Roupa.objects.count(), quantidade_inicial)
+
+	def test_preserva_produto_existente_com_nome_de_exemplo(self):
+		Roupa.objects.create(
+			nome="Camiseta Básica",
+			preco="1.00",
+			estoque=1,
+			tamanho="PP",
+		)
+
+		call_command("seed", stdout=StringIO())
+
+		produto = Roupa.objects.get(nome="Camiseta Básica")
+		self.assertEqual(produto.preco, 1)
+		self.assertEqual(produto.estoque, 1)
+		self.assertEqual(produto.tamanho, "PP")
 
 
 class CriacaoAutomaticaCarrinhoTests(TestCase):
