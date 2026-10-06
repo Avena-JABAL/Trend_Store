@@ -15,13 +15,17 @@
       <a class="link" href="{% url 'catalogo' %}">Início</a>
     </div>
 
-    <div class="perfil link">
+    <div class="perfil">
       <p>Perfil</p>
+      <a class="link" href="{% url 'login' %}">
+        <i class="fa fa-user" aria-hidden="true"></i>
+      </a>
     </div>
   </div>
+
   <div class="carrinho">
-    <a class="link" href="{% url 'carrinho' %}"
-      ><i class="fa fa-shopping-cart" aria-hidden="true"></i
-    ></a>
+    <a class="link" href="{% url 'carrinho' %}">
+      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+    </a>
   </div>
 </nav>
