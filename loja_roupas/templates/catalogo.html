@@ -2,57 +2,68 @@
 
 <!doctype html>
 <html lang="pt-BR">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Catálogo | Trend Store</title>
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
-    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/catalogo.css' %}">
-</head>
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/catalogo.css' %}" />
+  </head>
 
-<body>
-
-    {% block content %}
-        {% include 'components/navbar.html' %}
+  <body>
+    {% block content %} {% include 'components/navbar.html' %} 
     {% endblock content %}
 
-
     <main class="catalog-page">
+      {% if user.is_authenticated %}
+      <form
+        class="catalog-logout-form"
+        action="{% url 'logout' %}"
+        method="post">
+        {% csrf_token %}
+        <button class="catalog-logout-button" type="submit">Sair</button>
+      </form>
+      {% endif %}
 
-        {% if user.is_authenticated %}
-            <form class="catalog-logout-form" action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button class="catalog-logout-button" type="submit">
-                    Sair
-                </button>
-            </form>
-        {% endif %}
+      <section class="produtos">
 
+    {% for roupa in roupas %}
 
-        <section class="produtos">
+        <article class="produto">
 
-            <article class="produto">
-                <a href="{% url "produto" %}" class="produto-link">
-                    <div class="imagem-produto">
-                        <span>FOTO</span>
-                    </div>
+            <a href="{% url 'produto' roupa.id %}" class="produto-link">
 
-                    <div class="informacoes-produto">
-                        <p>Nome da roupa</p>
-                        <strong>R$ 99,90</strong>
-                    </div>
-                </a>
-            </article>
+                <div class="imagem-produto">
 
-        </section>
+                    <img src="{{ roupa.imagem }}" alt="{{ roupa.nome }}">
 
+                </div>
+
+                <div class="informacoes-produto">
+
+                    <p>{{ roupa.nome }}</p>
+
+                    <strong>R$ {{ roupa.preco }}</strong>
+
+                </div>
+
+            </a>
+
+        </article>
+
+    {% empty %}
+
+        <p>Nenhum produto encontrado.</p>
+
+    {% endfor %}
+
+</section>
     </main>
-
-</body>
+  </body>
 </html>

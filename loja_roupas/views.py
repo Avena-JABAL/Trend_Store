@@ -40,7 +40,11 @@ def login(request):
 
 
 def catalogo(request):
-    return render(request, 'catalogo.html')
+    roupas = Roupa.objects.all()
+
+    return render(request, 'catalogo.html', {
+        'roupas': roupas
+    })
 
 
 def logout(request):
@@ -76,10 +80,9 @@ def carrinho(request):
     })
 
 
-def produto(request, roupa_id=None):
-    roupa = (
-        get_object_or_404(Roupa, pk=roupa_id)
-        if roupa_id is not None
-        else None
-    )
-    return render(request, 'produto.html', {'roupa': roupa})
+def produto(request, id):
+    roupa = get_object_or_404(Roupa, id=id) 
+
+    return render(request, 'produto.html', {
+        'roupa': roupa
+        })
