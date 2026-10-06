@@ -59,7 +59,7 @@ def logout(request):
 
     return redirect('catalogo')
 
-
+@login_required
 def adicionar_carrinho(reques, roupa_id):
     cart = Cart(request)
     cart.add(roupa_id=roupa_id)
