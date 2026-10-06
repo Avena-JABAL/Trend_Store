@@ -13,5 +13,25 @@
         {% block content %}
         {% include 'components/navbar.html' %}
         {% endblock content %}
+
+      <section class='main'>
+      <div class="image">
+        <img src="{{ roupa.imagem }}" alt="{{ roupa.nome }}">
+      </div>
+    <div class="info">
+    <div class="nome">
+      {{ roupa.nome }}
+    </div>
+    <div class="preco">
+      {{ roupa.preco }}
+    </div>
+      <div class="info-square">
+      <div class="estoque">Quantidade em estoque: {{roupa.estoque}}</div>
+      <div class="tamanho">Tamanho: {{roupa.tamanho}}</div>
+      <button class="comprar">Compras</button>
+    </div>
+
+    </div>
+      </section>
     </body>
 </html>
