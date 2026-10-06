@@ -65,6 +65,7 @@ def carrinho(request):
         "nome": "Sapatilha", 
         "preco": "90,00", 
         "descricao": "Cor Prata", 
+        "imagem": "https://imgs.search.brave.com/yBKyDuT2RNr41Tim4THWpXVFJs5gN5xMxSVOZEc4am8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tcmNh/dHN0b3JlLnZ0ZXhp/bWcuY29tLmJyL2Fy/cXVpdm9zL2lkcy8x/MTEwMzMwLTEwMDAt/MTIwMC8yYTczZDU1/NC04MjUzLTQxNzUt/OTFjMS05NWJmNDcx/ODMyYTEuanBnP3Y9/NjM5MjI3NDg1MDA4/NDAwMDAw",
      },
      ]
 
