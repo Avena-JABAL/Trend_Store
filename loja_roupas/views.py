@@ -1,7 +1,9 @@
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
+
+from .models import Roupa
 
 # Create your views here.
 
@@ -50,8 +52,34 @@ def logout(request):
 
 
 def carrinho(request):
-    return render(request, 'carrinho.html')
+    itens = [  
+    {
+        "nome": "Vestido Longo", 
+        "preco": "140,90", 
+        "descricao": "Vermelho Vinho" 
+     },
+     {
+        "nome": "Calça leve", 
+        "preco": "99,99", 
+        "descricao": "Calça marrom", 
+     },
+     {
+        "nome": "Sapatilha", 
+        "preco": "90,00", 
+        "descricao": "Cor Prata", 
+        "imagem": "https://imgs.search.brave.com/yBKyDuT2RNr41Tim4THWpXVFJs5gN5xMxSVOZEc4am8/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tcmNh/dHN0b3JlLnZ0ZXhp/bWcuY29tLmJyL2Fy/cXVpdm9zL2lkcy8x/MTEwMzMwLTEwMDAt/MTIwMC8yYTczZDU1/NC04MjUzLTQxNzUt/OTFjMS05NWJmNDcx/ODMyYTEuanBnP3Y9/NjM5MjI3NDg1MDA4/NDAwMDAw",
+     },
+     ]
+
+    return render(request, 'carrinho.html' , {
+        "itens": itens
+    })
 
 
-def produto(request):
-    return render(request, 'produto.html')
+def produto(request, roupa_id=None):
+    roupa = (
+        get_object_or_404(Roupa, pk=roupa_id)
+        if roupa_id is not None
+        else None
+    )
+    return render(request, 'produto.html', {'roupa': roupa})

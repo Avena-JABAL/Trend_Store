@@ -1,16 +1,31 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carrinho De Compras</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
-</head>
-<body>
-    {% block content %}
-        {% include 'components/navbar.html' %}
-        {% endblock content %}
-</body>
+    <link rel="stylesheet" href="{% static 'css/carrinho.css' %}" />
+  </head>
+  <body>
+    {% block content %} {% include 'components/navbar.html' %}
+
+    <main class="carrinho-page">
+      <header class="carrinho-header">
+        <h1>Meu Carrinho de Compras</h1>
+      </header>
+
+      <section class="carrinho-item">
+        {% for item in itens %} 
+        {% include 'components/item_card.html' with item=item show_actions=True %} 
+        {% endfor %}
+      </section>
+    </main>
+    {% endblock content %}
+  </body>
 </html>

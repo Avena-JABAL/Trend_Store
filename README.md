@@ -40,11 +40,20 @@ ao Git.
 
 ```powershell
 python manage.py migrate
+python manage.py seed
 python manage.py runserver
 ```
 
-A aplicação fica disponível em http://127.0.0.1:8000/. Para criar um usuário
-administrador local, execute `python manage.py createsuperuser`.
+A aplicação fica disponível em http://127.0.0.1:8000/. O comando `seed`
+insere produtos genéricos de exemplo no catálogo. Ele pode ser executado várias
+vezes: produtos existentes com esses nomes são preservados, e nenhum usuário ou
+senha de exemplo é criado. Para criar um usuário administrador local, execute
+`python manage.py createsuperuser`.
+Os produtos usam imagens de exemplo hospedadas no Unsplash, então é necessária
+conexão à internet para carregá-las. Ao executar o seed novamente, imagens
+vazias desses produtos são preenchidas; imagens já definidas manualmente são
+preservadas.
+
 
 ## Trabalho em equipe
 
@@ -52,6 +61,11 @@ administrador local, execute `python manage.py createsuperuser`.
 - Ao adicionar uma dependência, atualize `requirements.txt` e informe a equipe.
 - Ao alterar modelos, inclua as migrações geradas (`python manage.py makemigrations`)
   no mesmo pull request.
+- O campo `imagem` de `Roupa` pode guardar uma URL ou um caminho relativo de
+  imagem, como `images/camiseta.jpg` para um arquivo em
+  `loja_roupas/static/images/`. O campo guarda apenas a referência: arquivos
+  locais precisam estar disponíveis no projeto, e a exibição da imagem deve
+  resolver essa referência no template.
 
 ## Estrutura
 

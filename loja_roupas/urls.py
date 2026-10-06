@@ -5,6 +5,7 @@ urlpatterns = [
     path('', catalogo, name="catalogo"),
     path('login', login, name="login"),
     path('carrinho', carrinho, name='carrinho'),
+    path('produto/<int:roupa_id>/', produto, name='produto'),
     path('produto', produto, name='produto'),
     path('logout', logout, name='logout')
 

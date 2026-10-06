@@ -1,8 +1,122 @@
+from io import StringIO
+
 from django.contrib.auth import get_user_model
+from django.core.management import call_command
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import Carrinho
+from .models import Carrinho, Roupa
+
+
+class SeedDataCommandTests(TestCase):
+	def test_cria_produtos_de_exemplo_sem_duplicar_ao_reexecutar(self):
+		call_command("seed", stdout=StringIO())
+		quantidade_inicial = Roupa.objects.count()
+
+		call_command("seed", stdout=StringIO())
+
+		self.assertGreater(quantidade_inicial, 0)
+		self.assertEqual(Roupa.objects.count(), quantidade_inicial)
+		self.assertTrue(
+			all(
+				produto.imagem.startswith("https://images.unsplash.com/")
+				for produto in Roupa.objects.all()
+			)
+		)
+
+	def test_preserva_produto_existente_com_nome_de_exemplo(self):
+		Roupa.objects.create(
+			nome="Camiseta Básica",
+			preco="1.00",
+			estoque=1,
+			tamanho="PP",
+		)
+
+		call_command("seed", stdout=StringIO())
+
+		produto = Roupa.objects.get(nome="Camiseta Básica")
+		self.assertEqual(produto.preco, 1)
+		self.assertEqual(produto.estoque, 1)
+		self.assertEqual(produto.tamanho, "PP")
+		self.assertTrue(produto.imagem.startswith("https://images.unsplash.com/"))
+
+	def test_preserva_imagem_personalizada_de_produto_existente(self):
+		imagem_personalizada = "https://exemplo.com/minha-camiseta.jpg"
+		Roupa.objects.create(
+			nome="Camiseta Básica",
+			preco="49.90",
+			estoque=20,
+			tamanho="M",
+			imagem=imagem_personalizada,
+		)
+
+		call_command("seed", stdout=StringIO())
+
+		produto = Roupa.objects.get(nome="Camiseta Básica")
+		self.assertEqual(produto.imagem, imagem_personalizada)
+
+
+class RoupaImagemTests(TestCase):
+	def test_armazena_url_ou_caminho_local_de_imagem(self):
+		referencias = [
+			"https://exemplo.com/imagens/camiseta.jpg",
+			"images/camiseta.jpg",
+		]
+
+		for indice, referencia in enumerate(referencias):
+			with self.subTest(referencia=referencia):
+				produto = Roupa.objects.create(
+					nome=f"Produto {indice}",
+					preco="49.90",
+					estoque=5,
+					tamanho="M",
+					imagem=referencia,
+				)
+
+				produto.refresh_from_db()
+				self.assertEqual(produto.imagem, referencia)
+
+	def test_imagem_pode_ficar_vazia(self):
+		produto = Roupa.objects.create(
+			nome="Produto sem imagem",
+			preco="49.90",
+			estoque=5,
+			tamanho="M",
+		)
+
+		self.assertEqual(produto.imagem, "")
+
+
+class PaginaProdutoTests(TestCase):
+	def setUp(self):
+		self.roupa = Roupa.objects.create(
+			nome="Camiseta de Teste",
+			preco="49.90",
+			estoque=5,
+			tamanho="M",
+			imagem="https://exemplo.com/camiseta.jpg",
+		)
+
+	def test_pagina_recebe_a_roupa_identificada_pelo_id(self):
+		resposta = self.client.get(
+			reverse("produto", kwargs={"roupa_id": self.roupa.pk})
+		)
+
+		self.assertEqual(resposta.status_code, 200)
+		self.assertEqual(resposta.context["roupa"], self.roupa)
+
+	def test_pagina_retorna_404_quando_roupa_nao_existe(self):
+		resposta = self.client.get(
+			reverse("produto", kwargs={"roupa_id": 9999})
+		)
+
+		self.assertEqual(resposta.status_code, 404)
+
+	def test_rota_antiga_sem_id_continua_disponivel(self):
+		resposta = self.client.get(reverse("produto"))
+
+		self.assertEqual(resposta.status_code, 200)
+		self.assertIsNone(resposta.context["roupa"])
 
 
 class CriacaoAutomaticaCarrinhoTests(TestCase):
