@@ -7,6 +7,7 @@ class Roupa(models.Model):
     preco = models.DecimalField(max_digits=10, decimal_places=2)
     estoque = models.IntegerField()
     tamanho = models.CharField(max_length=10)
+    imagem = models.CharField(max_length=2048, blank=True, default="")
 
 class Carrinho(models.Model):
     usuario = models.OneToOneField(

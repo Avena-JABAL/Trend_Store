@@ -17,6 +17,12 @@ class SeedDataCommandTests(TestCase):
 
 		self.assertGreater(quantidade_inicial, 0)
 		self.assertEqual(Roupa.objects.count(), quantidade_inicial)
+		self.assertTrue(
+			all(
+				produto.imagem.startswith("https://images.unsplash.com/")
+				for produto in Roupa.objects.all()
+			)
+		)
 
 	def test_preserva_produto_existente_com_nome_de_exemplo(self):
 		Roupa.objects.create(
@@ -32,6 +38,53 @@ class SeedDataCommandTests(TestCase):
 		self.assertEqual(produto.preco, 1)
 		self.assertEqual(produto.estoque, 1)
 		self.assertEqual(produto.tamanho, "PP")
+		self.assertTrue(produto.imagem.startswith("https://images.unsplash.com/"))
+
+	def test_preserva_imagem_personalizada_de_produto_existente(self):
+		imagem_personalizada = "https://exemplo.com/minha-camiseta.jpg"
+		Roupa.objects.create(
+			nome="Camiseta Básica",
+			preco="49.90",
+			estoque=20,
+			tamanho="M",
+			imagem=imagem_personalizada,
+		)
+
+		call_command("seed", stdout=StringIO())
+
+		produto = Roupa.objects.get(nome="Camiseta Básica")
+		self.assertEqual(produto.imagem, imagem_personalizada)
+
+
+class RoupaImagemTests(TestCase):
+	def test_armazena_url_ou_caminho_local_de_imagem(self):
+		referencias = [
+			"https://exemplo.com/imagens/camiseta.jpg",
+			"images/camiseta.jpg",
+		]
+
+		for indice, referencia in enumerate(referencias):
+			with self.subTest(referencia=referencia):
+				produto = Roupa.objects.create(
+					nome=f"Produto {indice}",
+					preco="49.90",
+					estoque=5,
+					tamanho="M",
+					imagem=referencia,
+				)
+
+				produto.refresh_from_db()
+				self.assertEqual(produto.imagem, referencia)
+
+	def test_imagem_pode_ficar_vazia(self):
+		produto = Roupa.objects.create(
+			nome="Produto sem imagem",
+			preco="49.90",
+			estoque=5,
+			tamanho="M",
+		)
+
+		self.assertEqual(produto.imagem, "")
 
 
 class CriacaoAutomaticaCarrinhoTests(TestCase):
