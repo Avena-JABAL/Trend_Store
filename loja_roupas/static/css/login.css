@@ -1,0 +1,294 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #ffffff;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+
+/* =========================
+   LOGIN / CADASTRO
+========================= */
+
+.auth-page {
+  width: 100%;
+  min-height: calc(100vh - 67px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 45px 20px 50px;
+
+  position: relative;
+  overflow: hidden;
+}
+
+
+/* =========================
+   LOGO DE FUNDO
+========================= */
+
+.auth-page::before {
+  content: "";
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 650px;
+  height: 650px;
+
+  transform: translate(-50%, -50%);
+
+  background-image: url("../images/logo.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  opacity: 0.50;
+
+  z-index: 0;
+}
+
+
+/* Conteúdo fica na frente da logo */
+
+.auth-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* =========================
+   CABEÇALHO
+========================= */
+
+.auth-header {
+  text-align: center;
+}
+
+.auth-brand {
+  color: #a84848;
+
+  font-size: 30px;
+  font-weight: normal;
+
+  text-decoration: none;
+}
+
+.auth-title {
+  margin-top: 12px;
+
+  color: #333333;
+
+  font-size: 25px;
+  font-weight: normal;
+}
+
+
+/* =========================
+   BOTÕES DE LOGIN/CADASTRO
+========================= */
+
+.auth-switcher {
+  display: flex;
+
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.auth-switch {
+  width: 150px;
+  height: 42px;
+
+  border: none;
+
+  background-color: #d9bcbc;
+  color: #333333;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+
+  cursor: pointer;
+}
+
+.auth-switch--login {
+  border-radius: 6px 0 0 6px;
+}
+
+.auth-switch--register {
+  border-radius: 0 6px 6px 0;
+}
+
+.auth-switch[aria-pressed="true"] {
+  background-color: #a84848;
+  color: white;
+}
+
+
+/* =========================
+   FORMULÁRIO
+========================= */
+
+.auth-forms {
+  width: 100%;
+  max-width: 420px;
+}
+
+.auth-section {
+  width: 100%;
+
+  padding: 30px;
+
+  background-color: rgba(238, 238, 238, 0.88);
+
+
+  border-radius: 8px;
+}
+
+.auth-section h2 {
+  margin-bottom: 25px;
+
+  color: #a84848;
+
+  font-size: 24px;
+  font-weight: normal;
+
+  text-align: center;
+}
+
+
+/* =========================
+   CAMPOS
+========================= */
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.form-field label {
+  color: #333333;
+
+  font-size: 16px;
+}
+
+.form-field input {
+  width: 100%;
+  height: 40px;
+
+  padding: 0 12px;
+
+  background-color: #ffffff;
+
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
+}
+
+.form-field input:focus {
+  outline: none;
+
+  border-color: #a84848;
+}
+
+
+/* =========================
+   BOTÃO
+========================= */
+
+.form-button {
+  width: 100%;
+  height: 42px;
+
+  margin-top: 5px;
+
+  border: none;
+  border-radius: 5px;
+
+  background-color: #a84848;
+  color: white;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+
+  cursor: pointer;
+}
+
+.form-button:hover {
+  background-color: #702020;
+}
+
+
+/* =========================
+   ERROS
+========================= */
+
+.form-error {
+  color: #a84848;
+
+  font-size: 14px;
+}
+
+
+/* =========================
+   VOLTAR AO CATÁLOGO
+========================= */
+
+.auth-back-link {
+  margin-top: 25px;
+
+  color: #a84848;
+
+  font-size: 15px;
+
+  text-decoration: none;
+}
+
+.auth-back-link:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================
+   RESPONSIVIDADE
+========================= */
+
+@media (max-width: 600px) {
+
+  .auth-page {
+    padding: 35px 15px 40px;
+  }
+
+  .auth-brand {
+    font-size: 26px;
+  }
+
+  .auth-title {
+    font-size: 22px;
+  }
+
+  .auth-switch {
+    width: 130px;
+  }
+
+  .auth-section {
+    padding: 25px 20px;
+  }
+}
