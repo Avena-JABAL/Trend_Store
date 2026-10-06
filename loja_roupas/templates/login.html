@@ -5,14 +5,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Entrar ou cadastrar | Trend Store</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
 	<link rel="stylesheet" href="{% static 'css/login.css' %}" />
 </head>
 <body>
-    {% block content %}
-        {% include 'components/navbar.html' %}
-        {% endblock content %}
 	<main class="auth-page">
 		<header class="auth-header">
 			<a class="auth-brand" href="{% url 'catalogo' %}">Trend Store</a>

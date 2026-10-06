@@ -41,7 +41,7 @@
 
 .main {
     display: flex;
-    width: 30rem;
+    width: 100rem;
     justify-content: space-between;
-    margin-left: -6rem;
+    align-items: center;
 }
