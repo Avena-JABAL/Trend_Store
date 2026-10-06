@@ -4,8 +4,12 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import Roupa
+from .cart import Cart
 
 # Create your views here.
+
+
+
 
 def login(request):
     login_form = AuthenticationForm(request=request)
@@ -54,6 +58,29 @@ def logout(request):
 
     return redirect('catalogo')
 
+
+def adicionar_carrinho(reques, roupa_id):
+    cart = Cart(request)
+    cart.add(roupa_id=roupa_id)
+    return redirect('ver_carrinho')
+
+def ver_carrinho(request):
+    cart = Cart(request)
+    produtos_adicionados = []
+
+    for roupa_id, item_data in cart.cart.items():
+        roupa = get_object_or_404(Roupa, id=roupa_id)
+        produtos_adicionados.append({
+            'nome': roupa.nome,
+            'preco': roupa.preco,
+            'imagem': roupa.imagem.url if roupa.imagem else '',
+            'quantidade': item_data['quantity'],
+            'id': roupa.id,
+        })
+    return render(request, 'carrinho.html', {
+        'itens_carrinho' : produtos_adicionados,
+        'show_actions':True
+    })
 
 def carrinho(request):
     itens = [  
