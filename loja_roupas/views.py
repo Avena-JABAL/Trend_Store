@@ -2,6 +2,13 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import redirect, render
+from . import models
+
+# Definições
+
+roupas = models.Roupa.objects.all()
+carrinho = models.Carrinho.objects.all()
+item_carrinho = models.ItemCarrinho.objects.all()
 
 # Create your views here.
 
