@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="{% static 'css/carrinho.css' %}" />
   </head>
   <body>
-    {% block content %} {% include 'components/navbar.html' %}
+    {% block content %} {% include 'components/navbar.html' %} 
+    
 
     <main class="carrinho-page">
       <header class="carrinho-header">
@@ -21,42 +22,11 @@
       </header>
 
       <section class="carrinho-item">
-        <article class="item-card">
-          <div class="item-imagem">
-            <img src="" alt="Roupa Fem..." />
-            <span>foto</span>
-          </div>
 
-          <div class="item-info">
-            <p class="item-descricao">Descrição do Produto...</p>
-            <p class="item-preco">R$ 99,99</p>
-          </div>
-        </article>
+        {% for item in itens %}
+          {% include 'components/item_card.html' %}
+        {% endfor %}
 
-        <article class="item-card">
-          <div class="item-imagem">
-            <img src="" alt="Roupa Fem..." />
-            <span>foto</span>
-          </div>
-
-          <div class="item-info">
-            <p class="item-descricao">Descrição do Produto...</p>
-            <p class="item-preco">R$ 99,99</p>
-          </div>
-        </article>
-
-        <article class="item-card">
-          <div class="item-imagem">
-            <img src="" alt="Roupa Fem..." />
-            <span>foto</span>
-          </div>
-
-          <div class="item-info">
-            <p class="item-descricao">Descrição do Produto...</p>
-            <p class="item-preco">R$ 99,99</p>
-          </div>
-        </article>
-      </section>
     </main>
     {% endblock content %}
   </body>

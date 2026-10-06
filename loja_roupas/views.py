@@ -50,7 +50,27 @@ def logout(request):
 
 
 def carrinho(request):
-    return render(request, 'carrinho.html')
+    itens = [  
+    {
+        "nome": "Vestido Longo", 
+        "preco": "140,90", 
+        "descricao": "Vermelho Vinho" 
+     },
+     {
+        "nome": "Calça leve", 
+        "preco": "99,99", 
+        "descricao": "Calça marrom", 
+     },
+     {
+        "nome": "Sapatilha", 
+        "preco": "90,00", 
+        "descricao": "Cor Prata", 
+     },
+     ]
+
+    return render(request, 'carrinho.html' , {
+        "itens": itens
+    })
 
 
 def produto(request):
