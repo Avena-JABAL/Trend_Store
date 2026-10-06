@@ -10,7 +10,8 @@
 
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
 
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
     <link rel="stylesheet" href="{% static 'css/catalogo.css' %}" />
@@ -22,40 +23,42 @@
     {% endblock content %}
 
     <main class="catalog-page">
+      {% if user.is_authenticated %}
+      <form
+        class="catalog-logout-form"
+        action="{% url 'logout' %}"
+        method="post"
+      >
+        {% csrf_token %}
+        <button class="catalog-logout-button" type="submit">Sair</button>
+      </form>
+      {% endif %}
 
       <section class="produtos">
-
-    {% for roupa in roupas %}
+        {% for roupa in roupas %}
 
         <article class="produto">
+          <a href="{% url 'produto' roupa.id %}" class="produto-link">
+            <div class="imagem-produto">
+              <img src="{{ roupa.imagem }}" alt="{{ roupa.nome }}" />
+            </div>
 
-            <a href="{% url 'produto' roupa.id %}" class="produto-link">
+            <div class="informacoes-produto">
+              <p>{{ roupa.nome }}</p>
 
-                <div class="imagem-produto">
-
-                    <img src="{{ roupa.imagem }}" alt="{{ roupa.nome }}">
-
-                </div>
-
-                <div class="informacoes-produto">
-
-                    <p>{{ roupa.nome }}</p>
-
-                    <strong>R$ {{ roupa.preco }}</strong>
-
-                </div>
-
-            </a>
-
+              <strong>R$ {{ roupa.preco }}</strong>
+              <!-- BOTÃO ADD CARRINHO -->
+              <button>carrinho</button>
+            </div>
+          </a>
         </article>
 
-    {% empty %}
+        {% empty %}
 
         <p>Nenhum produto encontrado.</p>
 
-    {% endfor %}
-
-</section>
+        {% endfor %}
+      </section>
     </main>
   </body>
 </html>
