@@ -60,7 +60,8 @@ def logout(request):
     return redirect('catalogo')
 
 @login_required
-def adicionar_carrinho(request, roupa_id):
+
+def adicionar_carrinho(reques, roupa_id):
     cart = Cart(request)
     cart.add(roupa_id=roupa_id)
     return redirect('ver_carrinho')
@@ -83,6 +84,7 @@ def ver_carrinho(request):
         'show_actions':True
     })
 
+@login_required
 def carrinho(request):
     itens = [  
     {
