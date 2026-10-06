@@ -13,8 +13,7 @@
     <link rel="stylesheet" href="{% static 'css/carrinho.css' %}" />
   </head>
   <body>
-    {% block content %} {% include 'components/navbar.html' %} 
-    
+    {% block content %} {% include 'components/navbar.html' %}
 
     <main class="carrinho-page">
       <header class="carrinho-header">
@@ -22,11 +21,10 @@
       </header>
 
       <section class="carrinho-item">
-
-        {% for item in itens %}
-          {% include 'components/item_card.html' %}
+        {% for item in itens %} 
+        {% include 'components/item_card.html' %} 
         {% endfor %}
-
+      </section>
     </main>
     {% endblock content %}
   </body>
