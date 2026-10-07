@@ -6,10 +6,74 @@
 
 body {
   min-height: 100vh;
-  background-color: #ffffff;
+  margin: 0;
+  background: white;
   font-family: Georgia, "Times New Roman", serif;
 }
 
+/* =========================
+   PARTE VERMELHA
+========================= */
+
+body::before {
+  content: "";
+  position: fixed;
+
+  left: 0;
+  top: 0;
+
+  width: 50%;
+  height: 100vh;
+
+  background: #a84848;
+
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    80% 50%,
+    100% 100%,
+    0 100%
+  );
+
+  z-index: 0;
+}
+
+/* =========================
+   TEXTO DA PARTE VERMELHA
+========================= */
+
+.red-text {
+  position: fixed !important;
+
+  left: -20px !important;
+  right: auto !important;
+  top: 40% !important;
+
+  width: 50% !important;
+
+  transform: translateY(-50%) !important;
+
+  color: white;
+
+  text-align: center;
+
+  z-index: 10 !important;
+}
+
+.red-text h1 {
+  margin-bottom: 10px;
+
+  font-size: 175px;
+  font-weight: normal;
+
+  font-family: "Inspiration", cursive;
+}
+
+.red-text p {
+  margin: 0;
+
+  font-size: 20px;
+}
 
 /* =========================
    LOGIN / CADASTRO
@@ -18,16 +82,16 @@ body {
 .auth-page {
   width: 100%;
   min-height: calc(100vh - 67px);
+
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
 
-  padding: 45px 20px 50px;
+  padding: 80px 200px 50px 20px;
 
   position: relative;
   overflow: hidden;
 }
-
 
 /* =========================
    LOGO DE FUNDO
@@ -37,38 +101,61 @@ body {
   content: "";
 
   position: absolute;
-  top: 50%;
-  left: 50%;
 
-  width: 650px;
-  height: 650px;
+  top: 55%;
+  left: 74%;
+
+  width: 900px;
+  height: 900px;
 
   transform: translate(-50%, -50%);
 
   background-image: url("../images/logo.png");
+
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
 
-  opacity: 0.50;
+  opacity: 5;
 
   z-index: 0;
 }
 
-
-/* Conteúdo fica na frente da logo */
+/* =========================
+   CONTEÚDO DO LOGIN
+========================= */
 
 .auth-page > * {
   position: relative;
   z-index: 1;
 }
 
+/* =========================
+   TEXTO VERMELHO
+========================= */
+
+.auth-page > .red-text {
+  position: fixed !important;
+
+  left: -65px !important;
+  right: auto !important;
+
+  top: 40% !important;
+
+  width: 50% !important;
+
+  transform: translateY(-50%) !important;
+
+  z-index: 10 !important;
+}
 
 /* =========================
    CABEÇALHO
 ========================= */
 
 .auth-header {
+  width: 420px;
+
   text-align: center;
 }
 
@@ -90,13 +177,15 @@ body {
   font-weight: normal;
 }
 
-
 /* =========================
-   BOTÕES DE LOGIN/CADASTRO
+   BOTÕES LOGIN / CADASTRO
 ========================= */
 
 .auth-switcher {
   display: flex;
+  justify-content: center;
+
+  width: 420px;
 
   margin-top: 30px;
   margin-bottom: 20px;
@@ -130,7 +219,6 @@ body {
   color: white;
 }
 
-
 /* =========================
    FORMULÁRIO
 ========================= */
@@ -147,7 +235,6 @@ body {
 
   background-color: rgba(238, 238, 238, 0.88);
 
-
   border-radius: 8px;
 }
 
@@ -161,7 +248,6 @@ body {
 
   text-align: center;
 }
-
 
 /* =========================
    CAMPOS
@@ -193,7 +279,7 @@ body {
 
   padding: 0 12px;
 
-  background-color: #ffffff;
+  background-color: white;
 
   border: 1px solid #cccccc;
   border-radius: 5px;
@@ -207,7 +293,6 @@ body {
 
   border-color: #a84848;
 }
-
 
 /* =========================
    BOTÃO
@@ -235,7 +320,6 @@ body {
   background-color: #702020;
 }
 
-
 /* =========================
    ERROS
 ========================= */
@@ -246,12 +330,15 @@ body {
   font-size: 14px;
 }
 
-
 /* =========================
    VOLTAR AO CATÁLOGO
 ========================= */
 
 .auth-back-link {
+  display: block;
+
+  width: 273px;
+
   margin-top: 25px;
 
   color: #a84848;
@@ -259,12 +346,13 @@ body {
   font-size: 15px;
 
   text-decoration: none;
+
+  text-align: center;
 }
 
 .auth-back-link:hover {
   text-decoration: underline;
 }
-
 
 /* =========================
    RESPONSIVIDADE
@@ -290,5 +378,17 @@ body {
 
   .auth-section {
     padding: 25px 20px;
+  }
+
+  .red-text {
+    left: 0 !important;
+  }
+
+  .red-text h1 {
+    font-size: 30px;
+  }
+
+  .red-text p {
+    font-size: 16px;
   }
 }

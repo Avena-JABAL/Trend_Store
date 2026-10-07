@@ -1,76 +1,55 @@
-# Trend Store
+<div align="center">
+	<img src="loja_roupas/static/images/logo.png" alt="Logo da Trend Store" width="220">
+	<h1>Trend Store</h1>
+	<p>Seu catálogo de moda, do Django ao carrinho.</p>
+	<p>
+		<img src="https://img.shields.io/badge/Python-3.12%2B-3776AB?logo=python&logoColor=white" alt="Python 3.12 ou superior">
+		<img src="https://img.shields.io/badge/Django-5.2-092E20?logo=django&logoColor=white" alt="Django 5.2">
+		<img src="https://img.shields.io/badge/Banco-PostgreSQL%20%7C%20SQLite-4169E1?logo=postgresql&logoColor=white" alt="PostgreSQL ou SQLite">
+	</p>
+</div>
 
-Projeto colaborativo desenvolvido com Django.
+<div align="center">
+	<strong>Projeto acadêmico · Grupo 3 · Frameworks Back-End</strong><br>
+	Professor Rafael
+</div>
 
-## Requisitos
+---
 
-- Python 3.12 ou superior
-- Git
+## Sobre
 
-## Configuração local
+A **Trend Store** é uma loja de roupas com catálogo online. O projeto permite consultar peças, ver seus detalhes, criar uma conta e montar um carrinho de compras.
 
-Clone o repositório e entre na pasta do projeto:
+## Funcionalidades
 
-```powershell
-git clone <URL_DO_REPOSITORIO>
-cd Trend_Store
-```
+- Catálogo de roupas e página de detalhes.
+- Cadastro, login e logout usando a autenticação do Django.
+- Carrinho com inclusão e remoção de produtos.
+- Cadastro e gerenciamento de roupas pelo Django Admin.
 
-Execute a configuração automática no PowerShell:
+## Modelo `Roupa`
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\setup.ps1
-```
+| Campo | Descrição |
+| --- | --- |
+| `nome` | Nome da peça |
+| `preco` | Preço de venda |
+| `estoque` | Quantidade disponível |
+| `tamanho` | Tamanho da peça |
+| `imagem` | Imagem opcional do produto |
 
-O script cria `.venv`, instala as dependências de `requirements.txt` e copia
-`.env.example` para `.env` apenas se o arquivo local ainda não existir. No macOS
-ou Linux, as etapas ainda podem ser executadas manualmente:
+## Tecnologias
 
-```powershell
-python3 -m venv .venv
-./.venv/bin/python -m pip install --upgrade pip
-./.venv/bin/python -m pip install -r requirements.txt
-cp .env.example .env
-```
+**Python** · **Django** · **HTML** · **CSS** · **JavaScript** · **PostgreSQL/Neon** · **SQLite**
 
-Se `.env` já existir, mantenha-o: ele não será sobrescrito e não deve ser enviado
-ao Git.
+O SQLite pode ser usado localmente; o PostgreSQL no Neon permite que a equipe compartilhe o banco.
 
-## Executar
+## Equipe
 
-```powershell
-python manage.py migrate
-python manage.py seed
-python manage.py runserver
-```
+| Integrante | Matrícula | Responsabilidade |
+| --- | --- | --- |
+| Alyson Coutinho | 01812644 | Página e sistema de carrinho de compras |
+| Arthur Fernandes | 01848451 | Banco de dados e back-end |
+| Beatriz Jordão | 01812582 | Página de produtos e back-end |
+| Julia Evelyn | 01803734 | Página principal |
+| Lívia Moreno | 01800123 | Página de login |
 
-A aplicação fica disponível em http://127.0.0.1:8000/. O comando `seed`
-insere produtos genéricos de exemplo no catálogo. Ele pode ser executado várias
-vezes: produtos existentes com esses nomes são preservados, e nenhum usuário ou
-senha de exemplo é criado. Para criar um usuário administrador local, execute
-`python manage.py createsuperuser`.
-Os produtos usam imagens de exemplo hospedadas no Unsplash, então é necessária
-conexão à internet para carregá-las. Ao executar o seed novamente, imagens
-vazias desses produtos são preenchidas; imagens já definidas manualmente são
-preservadas.
-
-
-## Trabalho em equipe
-
-- Não envie `.env`, `.venv/` nem o banco local `db.sqlite3` ao repositório.
-- Ao adicionar uma dependência, atualize `requirements.txt` e informe a equipe.
-- Ao alterar modelos, inclua as migrações geradas (`python manage.py makemigrations`)
-  no mesmo pull request.
-- O campo `imagem` de `Roupa` pode guardar uma URL ou um caminho relativo de
-  imagem, como `images/camiseta.jpg` para um arquivo em
-  `loja_roupas/static/images/`. O campo guarda apenas a referência: arquivos
-  locais precisam estar disponíveis no projeto, e a exibição da imagem deve
-  resolver essa referência no template.
-
-## Estrutura
-
-```text
-config/          Configurações e pontos de entrada do Django
-manage.py        Utilitário de administração do Django
-requirements.txt Dependências Python do projeto
-```
