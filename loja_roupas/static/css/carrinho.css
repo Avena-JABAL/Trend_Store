@@ -1,145 +1,3 @@
-/* * {
-    padding: 0;
-    box-sizing: border-box;
-    margin: 0;
-}
-
-.carrinho-page{
-    font-size: 20px;
-    padding: 50px 48px;
-    min-height: calc(100vh - 75px);
-    height: 200vh;
-
-}
-
-
-.carrinho-header{
-    margin-bottom: 70px;
-}
-
-.carrinho-header h1{
-    margin: 0;
-    font-size: 36px;
-    font-weight: 400;
-}
-
-.carrinho-item{
-    display: flex;
-    gap: 43px;
-    align-items: flex-start;
-    flex-wrap: wrap;
-}
-
-/* CARD 
-
-
-.item-card{
-     width: 100%;
-    background-color: #E6E6E6;
-    overflow: hidden;
-    box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.15);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.item-card:hover {
-    transform: translateY(-0.3rem);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
-}
-
-.item-imagem{
-    width: 100%;
-    height: 180px;
-    
-    background-color: #702326;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    position: relative;
-}
-
-.item-imagem img{   
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-
-.item-imagem span{
-    position: absolute;
-    color: white;
-    font-family: Georgia, serif;
-    font-size: 16px;
-}
-
-.item-info{
-    height: 100%;
-    padding: 7px 10px;
-}
-
-.item-descricao{
-    margin: 0;
-    color: #181717;
-    font-family: Georgia, serif;
-    font-size: 20px;
-}
-
-.item-preco{
-    margin: 14px, 0;
-    color: #b34c4c;
-    font-family: Georgia, serif;
-    font-size: 20px;
-}
-
-.item-acoes{
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: 16px;
-}
-
-.item-quantidade{
-    display: flex;
-    align-items: center;
-    border: 1.5px solid #702326;
-}
-
-.btn-qtd{
-    background-color: transparent;
-    border: none;
-    padding: 6px 12px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.qtd-valor{
-    padding: 6px 12px;
-    border-left: 1.5px solid #702326;
-    border-right: 1.5px solid #702326;
-    font-weight: bold;
-}
-
-.btn-remover{
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background-color: transparent;
-    border: 1.5px solid #702326;
-    padding: 6px 12px;
-    cursor: pointer;
-    color: black;
-    font-size: 10px;
-    color: #702326;
-    transition: 0.3s;
-}
-
-.btn-remover:hover{
-    background-color: #702326;
-    color: white;
-} */
-
-
 * {
     padding: 0;
     margin: 0;
@@ -154,7 +12,7 @@
 .carrinho-page {
     font-size: 1rem;
     padding: 3rem;
-    min-height: calc(100vh - 4.7rem);
+    min-height: calc(100vh - 5.7rem);
 }
 
 
@@ -192,7 +50,7 @@
 .item-card {
     width: 18rem;
     max-width: 100%;
-
+    position: relative;
     background-color: #E6E6E6;
 
     overflow: hidden;
@@ -361,6 +219,143 @@
     color: white;
 }
 
+/* =========================
+   LAYOUT
+========================= */
+
+.carrinho-layout{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.carrinho-item{
+    flex: 1;
+    display: flex;
+    gap: 43px;
+    
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.carrinho-resumo{
+    width: 230px;
+    padding: 25px;
+    background-color: #702326;
+    color: white;
+    border-radius: 8px;
+    position: sticky;
+    top: 30px;
+
+    flex-shrink: 0;
+}
+
+.item-checkbox {
+    position: absolute;
+
+    top: 10px;
+    left: 10px;
+
+    z-index: 10;
+
+    cursor: pointer;
+}
+
+.item-checkbox-input {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #702326;
+}
+
+.carrinho-resumo h2{
+    margin-bottom: 25px;
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.resumo-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.resumo-item span{
+    font-size: 14px;
+}
+
+.resumo-item stong{
+    font-size: 16px;
+}
+
+
+/* =========================
+   Checkboxs do resumo
+========================= */
+
+.item-card.selecionado {
+    outline: 3px solid #702326;
+}
+f
+.resumo-selecionar {
+    margin-top: 25px;
+    margin-bottom: 25px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #ccc;
+}
+
+.resumo-selecionar label {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+.resumo-selecionar input {
+    width: 17px;
+    height: 17px;
+
+    cursor: pointer;
+}
+
+.btn-excluir {
+    width: 100%;
+
+    padding: 11px;
+
+    border: none;
+    border-radius: 5px;
+
+    background-color: #702326;
+
+    color: white;
+    border: 1px solid white;
+
+    cursor: pointer;
+    margin-top: 30px;
+}
+
+.btn-excluir:hover{
+    transition: 0.6s;
+    color: black;
+    background-color: white;
+}
+
+.btn-excluir:disabled {
+    background-color: #aaa;
+
+    cursor: not-allowed;
+}
+
+
 
 /* =========================
    RESPONSIVIDADE
@@ -403,4 +398,6 @@
     }
 
 }
+
+
 

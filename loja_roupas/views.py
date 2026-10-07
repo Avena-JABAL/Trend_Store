@@ -82,6 +82,23 @@ def remover_do_carrinho(request, roupa_id):
     request.session.modified = True
     return redirect('carrinho')
 
+def remover_selecionados(request):
+    if request.method == 'POST':
+        carrinho = request.session.get('carrinho', {})
+
+        ids = request.POST.getlist('produtos')
+
+        for roupa_id in ids:
+            roupa_id = str(roupa_id)
+
+            if roupa_id in carrinho:
+                del carrinho[roupa_id]
+
+        request.session['carrinho'] = carrinho
+        request.session.modified = True
+
+    return redirect('carrinho')
+
 
 def adicionar_carrinho(request, roupa_id):
     carrinho = request.session.get('carrinho', {})
