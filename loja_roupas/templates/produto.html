@@ -1,4 +1,4 @@
-{% load static %}
+<!-- {% load static %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -34,4 +34,140 @@
     </div>
       </section>
     </body>
+</html> -->
+
+{% load static %}
+
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Produto | Trend Store</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/produto.css' %}">
+</head>
+
+<body>
+
+    {% include 'components/navbar.html' %}
+
+
+    <main class="produto-pagina">
+
+        <!-- GALERIA -->
+        <section class="galeria">
+
+            <div class="miniaturas">
+
+                <button class="miniatura ativa">
+                    <img src="{{ roupa.imagem }}" alt="{{ roupa.nome }}">
+                </button>
+
+                <button class="miniatura">
+                    <img src="{{ roupa.imagem }}" alt="{{ roupa.nome }}">
+                </button>
+
+                <button class="miniatura">
+                    <img src="{{ roupa.imagem }}" alt="{{ roupa.nome }}">
+                </button>
+
+                <button class="miniatura">
+                    <img src="{{ roupa.imagem }}" alt="{{ roupa.nome }}">
+                </button>
+
+                <button class="miniatura">
+                    <img src="{{ roupa.imagem }}" alt="{{ roupa.nome }}">
+                </button>
+
+            </div>
+
+
+            <div class="imagem-principal">
+
+                <img src="{{ roupa.imagem }}" alt="{{ roupa.nome }}">
+
+                <div class="setas">
+                    <button>&lsaquo;</button>
+                    <button>&rsaquo;</button>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- INFORMAÇÕES -->
+        <section class="informacoes">
+
+            <div class="cabecalho-produto">
+
+                <h1>{{ roupa.nome }}</h1>
+
+            </div>
+
+
+            <div class="preco">
+                R$ {{ roupa.preco }}
+            </div>
+
+
+            <div class="info-produto">
+
+                <div class="estoque">
+                    Quantidade em estoque: {{ roupa.estoque }}
+                </div>
+
+                <div class="tamanho">
+                    Tamanho: {{ roupa.tamanho }}
+                </div>
+
+            </div>
+
+
+            <button class="comprar">
+                Adicionar ao carrinho
+            </button>
+
+            <div class="favoritos">
+    ♡ Salvar como favoritos
+</div>
+
+<div class="compartilhar">
+    Compartilhar:
+    <span>♧ Copiar link</span>
+</div>
+
+<div class="frete">
+    <div class="frete-titulo">
+        <strong>Calcular frete</strong>
+        <span>Frete Grátis? Simule</span>
+    </div>
+
+    <div class="cep">
+        <input type="text" placeholder="00000-000">
+        <button>Calcular</button>
+    </div>
+
+    <div class="frete-links">
+        <a href="#">Confira a nossa Política de Frete e Entregas.</a>
+        <a href="#">Não sei o CEP</a>
+    </div>
+</div>
+
+
+<a href="#" class="problema">Relatar problema</a>
+
+        </section>
+
+    </main>
+
+</body>
+
 </html>
