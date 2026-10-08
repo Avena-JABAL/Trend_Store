@@ -49,7 +49,7 @@ O SQLite pode ser usado localmente; o PostgreSQL no Neon permite que a equipe co
 | --- | --- | --- |
 | Alyson Coutinho | 01812644 | Página e sistema de carrinho de compras |
 | Arthur Fernandes | 01848451 | Banco de dados e back-end |
-| Beatriz Jordão | 01812582 | Página de produtos e back-end |
+| Beatriz Jordão | 01812582 | Página de produtos, Nav-Bar e back-end |
 | Julia Evelyn | 01803734 | Página principal |
 | Lívia Moreno | 01800123 | Página de login |
 
