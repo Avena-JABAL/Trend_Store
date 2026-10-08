@@ -4,33 +4,27 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 
-from .models import Roupa
-from .cart import Cart
-
+from .models import Roupa, Carrinho, ItemCarrinho
 # Create your views here.
 
 def login(request):
     login_form = AuthenticationForm(request=request)
     cadastro_form = UserCreationForm()
-    # Define qual painel fica visível ao abrir a página ou retornar com erros.
     active_form = 'login'
 
     if request.method == 'POST':
-        # O campo oculto "acao" identifica qual formulário foi enviado.
         if request.POST.get('acao') == 'cadastro':
             active_form = 'cadastro'
             cadastro_form = UserCreationForm(request.POST)
 
             if cadastro_form.is_valid():
                 usuario = cadastro_form.save()
-                # O cadastro também inicia a sessão do novo usuário.
                 auth_login(request, usuario)
                 return redirect('catalogo')
         else:
             login_form = AuthenticationForm(request=request, data=request.POST)
 
             if login_form.is_valid():
-                # O AuthenticationForm já validou as credenciais enviadas.
                 auth_login(request, login_form.get_user())
                 return redirect('catalogo')
 
@@ -50,111 +44,105 @@ def catalogo(request):
 
 
 def logout(request):
-    # Encerrar sessão altera estado, então a rota só aceita POST.
     if request.method == 'POST':
         auth_logout(request)
 
     return redirect('catalogo')
 
+@login_required
 def remover_uma_unidade(request, roupa_id):
-    carrinho = request.session.get('carrinho', {})
-    str_id = str(roupa_id)
+    carrinho = get_object_or_404(
+        Carrinho,
+        usuario=request.user
+    )
 
-    if str_id in carrinho:
-        if carrinho[str_id] > 1:
-            carrinho[str_id] -= 1
-        else:
-            del carrinho[str_id]
+    item = get_object_or_404(
+        ItemCarrinho,
+        carrinho=carrinho,
+        roupa_id=roupa_id
+    )
 
-    request.session['carrinho'] = carrinho
-    request.session.modified = True
+    if item.quantidade > 1:
+        item.quantidade -= 1
+        item.save(update_fields=['quantidade'])
+    else:
+        item.delete()
+
     return redirect('carrinho')
 
 
+@login_required
 def remover_do_carrinho(request, roupa_id):
-    carrinho = request.session.get('carrinho', {})
-    str_id = str(roupa_id)
+    carrinho = get_object_or_404(
+        Carrinho,
+        usuario=request.user
+    )
 
-    if str_id in carrinho:
-        del carrinho[str_id]
+    item = get_object_or_404(
+        ItemCarrinho,
+        carrinho=carrinho,
+        roupa_id=roupa_id
+    )
 
-    request.session['carrinho'] = carrinho
-    request.session.modified = True
+    item.delete()
+
     return redirect('carrinho')
 
+@login_required
 def remover_selecionados(request):
     if request.method == 'POST':
-        carrinho = request.session.get('carrinho', {})
+        carrinho = get_object_or_404(
+            Carrinho,
+            usuario=request.user
+        )
 
         ids = request.POST.getlist('produtos')
 
-        for roupa_id in ids:
-            roupa_id = str(roupa_id)
-
-            if roupa_id in carrinho:
-                del carrinho[roupa_id]
-
-        request.session['carrinho'] = carrinho
-        request.session.modified = True
+        ItemCarrinho.objects.filter(
+            carrinho=carrinho,
+            roupa_id__in=ids
+        ).delete()
 
     return redirect('carrinho')
 
-
+@login_required
 def adicionar_carrinho(request, roupa_id):
-    carrinho = request.session.get('carrinho', {})
-    
-    str_id = str(roupa_id)
-    carrinho[str_id] = carrinho.get(str_id, 0) + 1
+    roupa = get_object_or_404(Roupa, id=roupa_id)
 
-    request.session['carrinho'] = carrinho
-    request.session.modified = True
+    carrinho, created = Carrinho.objects.get_or_create(
+        usuario=request.user
+    )
+
+    item, created = ItemCarrinho.objects.get_or_create(
+        carrinho=carrinho,
+        roupa=roupa,
+        defaults={'quantidade': 1}
+    )
+
+    if not created:
+        item.quantidade += 1
+        item.save(update_fields=['quantidade'])
 
     return redirect('carrinho')
 
-
-def ver_carrinho(request):
-    cart = Cart(request)
-    produtos_adicionados = []
-
-    for roupa_id, item_data in cart.cart.items():
-        roupa = get_object_or_404(Roupa, id=roupa_id)
-        produtos_adicionados.append({
-            'nome': roupa.nome,
-            'preco': roupa.preco,
-            'imagem': roupa.imagem if roupa.imagem else '',
-            'quantidade': item_data['quantity'],
-            'id': roupa.id,
-        })
-    return render(request, 'carrinho.html', {
-        'itens_carrinho' : produtos_adicionados,
-        'show_actions':True
-    })
 
 @login_required
 def carrinho(request):
-    carrinho_sessao = request.session.get('carrinho', {})
-    itens_carrinho = []
-    total = 0
+    carrinho, created = Carrinho.objects.get_or_create(
+        usuario=request.user
+    )
 
-    for roupa_id, quantidade in carrinho_sessao.items():
-        try:
-            produto = Roupa.objects.get(id=int(roupa_id))
-            subtotal = produto.preco * quantidade
-            total += subtotal
+    itens_carrinho = carrinho.itens.select_related('roupa')
 
-            itens_carrinho.append({
-                'produto': produto,
-                'quantidade': quantidade,
-                'subtotal': subtotal,
-            })   
-        except Roupa.DoesNotExist:
-            continue 
-    context = {
+    total = sum(
+        item.roupa.preco * item.quantidade
+        for item in itens_carrinho
+    )
+
+    return render(request, 'carrinho.html', {
         'itens': itens_carrinho,
         'total': total,
-    }
-
-    return render(request, 'carrinho.html', context)
+    })
 
 
 def produto(request, id):

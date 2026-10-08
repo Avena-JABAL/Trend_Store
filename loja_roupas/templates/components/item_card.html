@@ -1,8 +1,8 @@
 <article 
 class="item-card" 
-data-preco="{{ item.produto.preco }}" 
+data-preco="{{ item.roupa.preco }}" 
 data-quantidade="{{ item.quantidade }}"
-data-produto-id="{{ item.produto.id }}">
+data-produto-id="{{ item.roupa.id }}">
 
 
   <label class="item-checkbox">
@@ -11,20 +11,20 @@ data-produto-id="{{ item.produto.id }}">
   </label>
 
   <div class="item-imagem">
-    <img src="{{ item.produto.imagem }}" alt="{{ item.produto.nome }}" />
+    <img src="{{ item.roupa.imagem }}" alt="{{ item.roupa.nome }}" />
   </div>
 
   <div class="item-info">
-    <p class="item-descricao">{{ item.produto.nome }}</p>
-<p>ID DO PRODUTO: {{ item.produto.id }}</p>
+    <p class="item-descricao">{{ item.roupa.nome }}</p>
+<p>ID DO PRODUTO: {{ item.roupa.id }}</p>
 
-    <p class="item-preco">R$ {{ item.produto.preco }}</p>
+    <p class="item-preco">R$ {{ item.roupa.preco }}</p>
 
     {% if show_actions %}
     <div class="item-acoes">
       <div class="item-quantidade">
         <form
-          action="{% url 'remover_uma_unidade' item.produto.id %}"
+          action="{% url 'remover_uma_unidade' item.roupa.id %}"
           method="post"
         >
           {% csrf_token %}
@@ -34,7 +34,7 @@ data-produto-id="{{ item.produto.id }}">
         <span class="qtd-valor">{{ item.quantidade }}</span>
 
         <form
-          action="{% url 'adicionar_carrinho' item.produto.id %}"
+          action="{% url 'adicionar_carrinho' item.roupa.id %}"
           method="post"
         >
           {% csrf_token %}
@@ -43,7 +43,7 @@ data-produto-id="{{ item.produto.id }}">
       </div>
 
       <form
-        action="{% url 'remover_do_carrinho' item.produto.id %}"
+        action="{% url 'remover_do_carrinho' item.roupa.id %}"
         method="post"
       >
         {% csrf_token %}
