@@ -14,7 +14,7 @@
 }
 
 .search {
-    width: wrap-content;
+    color: white !important;
 }
 
 .logo img {
@@ -48,7 +48,6 @@
 }
 
 .catalog-logout-button {
-    width: wrap-content;
     padding: 0.2rem;
     border: none;
     background: none;
@@ -56,4 +55,8 @@
     font-family: "Inria Serif";
     font-size: 20px;
     cursor: pointer;
+}
+
+.search .fa-search {
+    color: white !important;
 }

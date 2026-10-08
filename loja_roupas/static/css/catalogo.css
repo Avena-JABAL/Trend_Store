@@ -94,3 +94,12 @@
     font-size: 1.5rem;
 }
 
+.btn-add-carrinho {
+    background-color: #A14545;
+    border: none;
+    border-radius: 1px;
+    padding: 0.3rem;
+    color: white;
+    margin: 0.1rem;
+    align-items: end;
+}
