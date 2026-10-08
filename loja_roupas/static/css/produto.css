@@ -201,7 +201,7 @@ body {
    BOTÃO COMPRAR
 ========================= */
 
-.informacoes > .comprar {
+.comprar {
     width: 100%;
     min-height: 4rem;
     border: 0;
@@ -214,8 +214,7 @@ body {
     cursor: pointer;
     transition: 0.2s ease;
 }
-
-.informacoes > .comprar:hover {
+.comprar:hover {
     background-color: #773232;
 }
 

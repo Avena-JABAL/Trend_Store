@@ -131,9 +131,13 @@
             </div>
 
 
-            <button class="comprar">
-                Adicionar ao carrinho
-            </button>
+            <form method="post" action="{% url 'adicionar_carrinho' roupa.id %}">
+                {% csrf_token %}
+
+                <button type="submit" class="comprar">
+                    Adicionar ao carrinho
+                </button>
+            </form>
 
             <div class="favoritos">
     ♡ Salvar como favoritos
